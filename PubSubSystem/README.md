@@ -1,4 +1,4 @@
-![img.png](img.png)
+![img_1.png](img_1.png)
 
 Subscriber Subscriber 1 received message: Message 1 for Topic 1
 Subscriber Subscriber 2 received message: Message 1 for Topic 1
