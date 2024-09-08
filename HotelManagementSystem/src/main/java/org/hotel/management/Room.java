@@ -15,7 +15,7 @@ public class Room {
 
     public synchronized void book() {
         if (status == RoomStatus.AVAILABLE) {
-            System.out.println("The status of the Room" + status);
+            System.out.println("The status of the Room: " + status);
             status = RoomStatus.BOOKED;
         } else {
             throw new IllegalStateException("Room is not available for booking.");

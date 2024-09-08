@@ -28,7 +28,7 @@ public class Main {
         LocalDate endDate = startDate.plusDays(5);
         Reservation reservation1 = hotelManagementSystem.bookRoom(guest1, room1, startDate, endDate);
         if(reservation1 != null) {
-            System.out.println("Reservation 1: " + reservation1);
+            System.out.println("Reservation 1: " + reservation1.getId());
         } else {
             System.out.println("Room not available for the given dates.");
         }
@@ -36,15 +36,14 @@ public class Main {
         // check in
         assert reservation1 != null;
         hotelManagementSystem.checkIn(reservation1.getId());
-        System.out.println("Checked In" + reservation1.getId());
+        System.out.println("Checked In: " + reservation1.getId());
 
         // check out
         Payment payment = new CreditCardPayment();
         hotelManagementSystem.checkOut(reservation1.getId(), payment);
-        System.out.println("Checked Out" + reservation1.getId());
+        System.out.println("Checked Out: " + reservation1.getId());
 
         // cancel reservation
         hotelManagementSystem.cancelReservation(reservation1.getId());
-        System.out.println("Reservation cancelled: " + reservation1.getId());
     }
 }

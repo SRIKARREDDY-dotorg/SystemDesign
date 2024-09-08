@@ -1,0 +1,5 @@
+The status of the Room: AVAILABLE
+Reservation 1: RESB8D58DE3
+Checked In: RESB8D58DE3
+Checked Out: RESB8D58DE3
+There is no reservation present with: RESB8D58DE3

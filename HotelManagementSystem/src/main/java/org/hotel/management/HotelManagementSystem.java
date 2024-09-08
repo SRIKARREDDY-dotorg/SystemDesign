@@ -56,8 +56,13 @@ public class HotelManagementSystem {
 
     public synchronized void cancelReservation(String reservationId) {
         Reservation reservation = reservations.get(reservationId);
-        reservation.cancel();
-        reservations.remove(reservationId);
+        if(reservation != null) {
+            reservation.cancel();
+            reservations.remove(reservationId);
+            System.out.println("Reservation cancelled: " + reservationId);
+        } else {
+            System.out.println("There is no reservation present with: "+ reservationId);
+        }
     }
 
     public synchronized void checkIn(String reservationId) {
