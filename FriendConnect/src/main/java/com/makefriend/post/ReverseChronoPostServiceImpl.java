@@ -6,6 +6,7 @@ import com.makefriend.user.UserService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ReverseChronoPostServiceImpl implements PostService {
     private final UserService userService;
@@ -13,6 +14,7 @@ public class ReverseChronoPostServiceImpl implements PostService {
     private static ReverseChronoPostServiceImpl instance;
     private ReverseChronoPostServiceImpl() {
         userService = UserService.getInstance();
+        posts = new ConcurrentHashMap<>();
     }
     public static ReverseChronoPostServiceImpl getInstance() {
         if(instance == null) {
@@ -29,7 +31,8 @@ public class ReverseChronoPostServiceImpl implements PostService {
             throw new IllegalArgumentException("User not logged in");
         }
         final Post post = buildPost(author, content, images, videos);
-        posts.getOrDefault(author.getUserId(), new ArrayList<>()).add(post);
+        List<Post> authorPosts = posts.computeIfAbsent(author.getUserId(), k -> new ArrayList<>());
+        authorPosts.add(post);
         return post;
     }
 
@@ -46,9 +49,7 @@ public class ReverseChronoPostServiceImpl implements PostService {
         if(!userService.verifyLogin(user)) {
             throw new IllegalArgumentException("User not logged in");
         }
-        for(List<Post> userPosts : posts.values()) {
-            newsFeed.addAll(userPosts);
-        }
+        newsFeed.addAll(posts.getOrDefault(user.getUserId(), new ArrayList<>()));
         // get the friends posts of the User as well
         user.getFriends().forEach(friend -> newsFeed.addAll(posts.getOrDefault(friend.getUserId(), new ArrayList<>())));
         newsFeed.sort((p1, p2) -> Long.compare(p2.getTimestamp(), p1.getTimestamp()));

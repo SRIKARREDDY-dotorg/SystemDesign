@@ -2,6 +2,7 @@ package com.makefriend.comment;
 
 import com.makefriend.post.Post;
 import com.makefriend.user.User;
+import com.makefriend.util.IDGenerator;
 
 public class Comment {
     private final String id;
@@ -11,7 +12,7 @@ public class Comment {
     private long timestamp;
 
     private Comment() {
-        this.id = generateCommentId();
+        this.id = IDGenerator.generateId();
     }
     public String getId() {
         return id;
@@ -74,8 +75,5 @@ public class Comment {
             comment.timestamp = System.currentTimeMillis();
             return comment;
         }
-    }
-    private String generateCommentId() {
-        return "COMMENT_" + System.currentTimeMillis();
     }
 }

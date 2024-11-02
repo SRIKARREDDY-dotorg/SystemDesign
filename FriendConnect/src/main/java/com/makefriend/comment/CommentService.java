@@ -5,6 +5,8 @@ import com.makefriend.post.Post;
 import com.makefriend.user.User;
 import com.makefriend.user.UserService;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,10 +19,11 @@ public class CommentService {
     private CommentService() {
         this.userService = UserService.getInstance();
         this.notificationService = NotificationService.getInstance();
+        this.comments = new HashMap<>();
     }
     public static CommentService getInstance() {
         if(instance == null) {
-            return new CommentService();
+            instance = new CommentService();
         }
         return instance;
     }
@@ -34,8 +37,8 @@ public class CommentService {
             return;
         }
         final Comment comment = Comment.builder().withContent(content).withUser(user).build();
-        comments.get(post.getPostId()).add(comment);
-        notificationService.sendLikeNotification(user, post.getAuthor(), post.getContent());
+        comments.computeIfAbsent(post.getPostId(), k -> new ArrayList<>()).add(comment);
+        notificationService.sendCommentNotification(user, post.getAuthor(), post.getContent());
     }
 
     public List<Comment> getCommentsForPost(Post post) {

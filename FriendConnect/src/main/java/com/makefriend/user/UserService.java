@@ -9,7 +9,8 @@ public class UserService {
     private static UserService instance;
     public static UserService getInstance() {
         if(instance == null) {
-            return new UserService();
+            instance = new UserService();
+            return instance;
         }
         return instance;
     }
@@ -52,7 +53,7 @@ public class UserService {
             throw new IllegalArgumentException("Invalid username or password");
         }
         loggedInUsers.add(user);
-        System.out.println("User logged in successfully");
+        System.out.println(user.getUsername() + " logged in successfully");
     }
 
     public void logout(User user) {
@@ -63,7 +64,7 @@ public class UserService {
             throw new IllegalArgumentException("User is not logged in");
         }
         loggedInUsers.remove(user);
-        System.out.println("User logged out successfully");
+        System.out.println(user.getUsername() + " logged out successfully");
     }
 
     public boolean verifyLogin(User user) {
@@ -77,6 +78,6 @@ public class UserService {
         if(notification == null || notification.isBlank()) {
             throw new IllegalArgumentException("Notification cannot be null or empty");
         }
-        System.out.println(notification);
+        System.out.println("Hey " + user.getUsername() + " you have a new notification: "+ notification);
     }
 }

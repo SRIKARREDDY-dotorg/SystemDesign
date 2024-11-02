@@ -7,7 +7,8 @@ public class ProfileService {
 
     public static ProfileService getInstance() {
         if(instance == null) {
-            return new ProfileService();
+            instance = new ProfileService();
+            return instance;
         }
         return instance;
     }

@@ -5,8 +5,10 @@ import com.makefriend.post.Post;
 import com.makefriend.user.User;
 import com.makefriend.user.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class LikeService {
     private static LikeService instance;
@@ -16,11 +18,12 @@ public class LikeService {
 
     private LikeService() {
         this.userService = UserService.getInstance();
+        this.likes = new ConcurrentHashMap<>();
         this.notificationService = NotificationService.getInstance();
     }
     public static LikeService getInstance() {
         if(instance == null) {
-            return new LikeService();
+            instance = new LikeService();
         }
         return instance;
     }
@@ -33,14 +36,15 @@ public class LikeService {
             throw new IllegalArgumentException("User is not logged in");
         }
         if(post.getAuthor().equals(user)) {
-            throw new IllegalArgumentException("Cannot like your own post");
+            System.out.println("You like your own post");
         }
         if(likes.containsKey(post.getPostId()) && likes.get(post.getPostId()).contains(post.getAuthor())) {
             throw new IllegalArgumentException("User has already liked this post");
         }
         notificationService.sendLikeNotification(user, post.getAuthor(), post.getContent());
         final Like like = Like.builder().withPost(post).withUser(user).build();
-        likes.get(post.getPostId()).add(like);
+        final List<Like> likesByPost = likes.computeIfAbsent(post.getPostId(), k -> new ArrayList<>());
+        likesByPost.add(like);
     }
 
     public List<Like> getLikesByPost(Post post) {

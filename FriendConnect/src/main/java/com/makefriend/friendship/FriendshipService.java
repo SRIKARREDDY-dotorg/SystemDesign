@@ -4,6 +4,7 @@ import com.makefriend.notification.NotificationService;
 import com.makefriend.user.User;
 import com.makefriend.user.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,9 +21,9 @@ public class FriendshipService {
         notificationService = NotificationService.getInstance();
     }
 
-    public FriendshipService getInstance() {
+    public static FriendshipService getInstance() {
         if(instance == null) {
-            return new FriendshipService();
+            instance = new FriendshipService();
         }
         return instance;
     }
@@ -42,7 +43,7 @@ public class FriendshipService {
         }
         notificationService.sendFriendRequestNotification(sender, friendshipRequest.getReceiver(), friendshipRequest.getStatus());
         final String receiverUsername = friendshipRequest.getReceiver().getUsername();
-        final List<FriendshipRequest> requests = friendshipRequests.get(receiverUsername);
+        final List<FriendshipRequest> requests = friendshipRequests.getOrDefault(receiverUsername, new ArrayList<>());
         requests.add(friendshipRequest);
         friendshipRequests.put(receiverUsername, requests);
     }

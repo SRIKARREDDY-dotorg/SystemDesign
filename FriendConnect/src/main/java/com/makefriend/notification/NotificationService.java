@@ -9,7 +9,7 @@ public class NotificationService {
     private final UserService userService;
     public static NotificationService getInstance() {
         if(instance == null) {
-            return new NotificationService();
+            instance = new NotificationService();
         }
         return instance;
     }
@@ -43,6 +43,18 @@ public class NotificationService {
             return;
         }
         String message = "User " + sender.getUsername() + " liked your post: " + postContent;
+        userService.addNotification(receiver, message);
+    }
+
+    public void sendCommentNotification(User sender, User receiver, String postContent) {
+        if(sender == null || receiver == null) {
+            throw new IllegalArgumentException("Sender and receiver cannot be null");
+        }
+        if(!userService.verifyLogin(receiver)) {
+            System.out.println("User " + receiver.getUsername() + " is not logged in");
+            return;
+        }
+        String message = "User " + sender.getUsername() + " commented on your post: " + postContent;
         userService.addNotification(receiver, message);
     }
 }

@@ -2,6 +2,7 @@ package com.makefriend.like;
 
 import com.makefriend.post.Post;
 import com.makefriend.user.User;
+import com.makefriend.util.IDGenerator;
 
 public class Like {
     private final String likeId;
@@ -10,7 +11,7 @@ public class Like {
     private long timestamp;
 
     private Like() {
-        this.likeId = generateLikeId();
+        this.likeId = IDGenerator.generateId();
     }
 
     public static Builder builder() {
@@ -58,8 +59,5 @@ public class Like {
             like.timestamp = System.currentTimeMillis();
             return like;
         }
-    }
-    private String generateLikeId() {
-        return "LIKE_" + System.currentTimeMillis();
     }
 }

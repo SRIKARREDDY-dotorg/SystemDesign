@@ -1,7 +1,9 @@
 package com.makefriend.user;
 
 import com.makefriend.profile.Profile;
+import com.makefriend.util.IDGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -12,8 +14,9 @@ public class User {
     private Profile profile;
     private List<User> friends;
 
-    private User(String userId) {
-        this.userId = userId;
+    private User() {
+        this.userId = IDGenerator.generateId();
+        this.friends = new ArrayList<>();
     }
     public void setFriend(User user) {
         friends.add(user);
@@ -53,10 +56,6 @@ public class User {
         return new Builder();
     }
 
-    private static String generateUserId() {
-        return "USER_"+ System.currentTimeMillis();
-    }
-
     public static class Builder {
         private String username;
         private String emailId;
@@ -84,7 +83,7 @@ public class User {
         }
 
         public User build() {
-            User user = new User(generateUserId());
+            User user = new User();
             user.username = this.username;
             user.emailId = this.emailId;
             user.password = this.password;

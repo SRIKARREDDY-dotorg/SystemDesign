@@ -1,6 +1,7 @@
 package com.makefriend.post;
 
 import com.makefriend.user.User;
+import com.makefriend.util.IDGenerator;
 
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class Post {
     }
 
     private Post() {
-        this.postId = generatePostId();
+        this.postId = IDGenerator.generateId();
     }
 
     public static class Builder {
@@ -91,8 +92,5 @@ public class Post {
             post.timestamp = System.currentTimeMillis();
             return post;
         }
-    }
-    private String generatePostId() {
-        return "POST_" + System.currentTimeMillis();
     }
 }
