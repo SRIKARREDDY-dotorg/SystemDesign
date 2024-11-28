@@ -7,6 +7,7 @@ public class Member {
     private final String id;
     private String name;
     private String email;
+    private List<String> history;
     private List<Book> booksBorrowed;
 
     private Member() {
@@ -41,11 +42,26 @@ public class Member {
         this.booksBorrowed = booksBorrowed;
     }
 
+    public List<String> getHistory() {
+        return history;
+    }
+
+    public void addHistory(String history) {
+        this.history.add(history);
+    }
+
+    public void setHistory(List<String> history) {
+        this.history = history;
+    }
     public static class Builder {
         private final Member member;
 
         private Builder() {
             this.member = new Member();
+        }
+
+        public static Builder newInstance() {
+            return new Builder();
         }
 
         public Builder withName(String name) {

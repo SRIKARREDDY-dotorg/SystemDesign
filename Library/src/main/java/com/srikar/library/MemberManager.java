@@ -27,4 +27,7 @@ public class MemberManager {
     public boolean isValidMember(String memberId) {
         return memberCatalog.containsKey(memberId);
     }
+    public Member getMember(String memberId) {
+        return memberCatalog.get(memberId);
+    }
 }

@@ -8,6 +8,8 @@ public class Book {
     private String author;
     private String isbn;
     private Long publicationYear;
+    private boolean isBorrowed;
+    private Member borrowedBy;
 
     private Book() {
         this.id = UUID.randomUUID().toString();
@@ -49,11 +51,31 @@ public class Book {
         this.publicationYear = publicationYear;
     }
 
+    public boolean isBorrowed() {
+        return isBorrowed;
+    }
+
+    public void setBorrowed(boolean borrowed) {
+        isBorrowed = borrowed;
+    }
+
+    public Member getBorrowedBy() {
+        return borrowedBy;
+    }
+
+    public void setBorrowedBy(Member borrowedBy) {
+        this.borrowedBy = borrowedBy;
+    }
+
     public static class Builder {
         private final Book book;
 
         private Builder() {
             this.book = new Book();
+        }
+
+        public static Builder newInstance() {
+            return new Builder();
         }
 
         public Builder withTitle(String title) {
@@ -73,6 +95,16 @@ public class Book {
 
         public Builder withPublicationYear(Long publicationYear) {
             book.setPublicationYear(publicationYear);
+            return this;
+        }
+
+        public Builder withIsBorrowed(boolean isBorrowed) {
+            book.isBorrowed = isBorrowed;
+            return this;
+        }
+
+        public Builder withBorrowedBy(Member borrowedBy) {
+            book.borrowedBy = borrowedBy;
             return this;
         }
 

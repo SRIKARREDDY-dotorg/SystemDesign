@@ -19,18 +19,22 @@ public class BookManager {
         return INSTANCE;
     }
 
+    public boolean isValidBook(String bookId) {
+        return bookCatalog.containsKey(bookId);
+    }
+
     public List<Book> fetchBooks(List<String> keywords) {
         if (keywords.size() == 0) {
-            return bookCatalog.values().stream().toList();
+            return bookCatalog.values().stream().filter(book -> !book.isBorrowed()).toList();
         }
         // search for each keyword
         return bookCatalog.values().stream()
                 .filter(book -> keywords.stream()
                         .anyMatch(keyword ->
-                                book.getTitle().toLowerCase().contains(keyword.toLowerCase()) ||
+                                (book.getTitle().toLowerCase().contains(keyword.toLowerCase()) ||
                                 book.getAuthor().toLowerCase().contains(keyword.toLowerCase()) ||
                                 book.getIsbn().toLowerCase().contains(keyword.toLowerCase()) ||
-                                book.getPublicationYear().toString().toLowerCase().contains(keyword.toLowerCase())))
+                                book.getPublicationYear().toString().toLowerCase().contains(keyword.toLowerCase())) && !book.isBorrowed()))
                 .toList();
     }
 
