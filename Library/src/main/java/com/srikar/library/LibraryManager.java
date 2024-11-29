@@ -2,10 +2,13 @@ package com.srikar.library;
 
 import java.util.List;
 
+// Todo Add limitations of Max Num of books and Loan duration (charge 1rs per day).
 public class LibraryManager {
     private static LibraryManager INSTANCE;
     private final BookManager bookManager;
     private final MemberManager memberManager;
+    private final int MAX_NUM_OF_BOOKS = 5;
+    private final int LOAN_DURATION = 7;
 
     private LibraryManager() {
         bookManager = BookManager.getInstance();
@@ -51,7 +54,7 @@ public class LibraryManager {
         }
         books.stream().map(Book::getId).forEach(bookId -> {
             if (!bookManager.isValidBook(bookId)) {
-                throw new IllegalArgumentException("Invalid book id");
+                throw new IllegalArgumentException("Invalid book id: " + bookId);
             }
         });
         List<Book> validBooks = books.stream().filter(book -> bookManager.isValidBook(book.getId())).toList();
