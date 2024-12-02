@@ -1,5 +1,6 @@
 package com.srikar.library;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class Book {
@@ -10,6 +11,7 @@ public class Book {
     private Long publicationYear;
     private boolean isBorrowed;
     private Member borrowedBy;
+    private Date borrowedOn;
 
     private Book() {
         this.id = UUID.randomUUID().toString();
@@ -66,6 +68,20 @@ public class Book {
     public void setBorrowedBy(Member borrowedBy) {
         this.borrowedBy = borrowedBy;
     }
+    public Date getBorrowedOn() {
+        return borrowedOn;
+    }
+    public void setBorrowedOn(Date borrowedOn) {
+        this.borrowedOn = borrowedOn;
+    }
+
+    /**
+     * Number of days since the book was borrowed
+     * @return
+     */
+    public Long getLoanDuration() {
+        return borrowedOn != null ? (new Date().getTime() - borrowedOn.getTime()) / (1000 * 60 * 60 * 24) : 0;
+    }
 
     public static class Builder {
         private final Book book;
@@ -105,6 +121,11 @@ public class Book {
 
         public Builder withBorrowedBy(Member borrowedBy) {
             book.borrowedBy = borrowedBy;
+            return this;
+        }
+
+        public Builder withBorrowedOn(Date borrowedOn) {
+            book.borrowedOn = borrowedOn;
             return this;
         }
 
