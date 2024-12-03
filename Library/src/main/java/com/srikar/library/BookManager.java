@@ -24,7 +24,7 @@ public class BookManager {
     }
 
     public List<Book> fetchBooks(List<String> keywords) {
-        if (keywords.size() == 0) {
+        if (keywords.isEmpty()) {
             return bookCatalog.values().stream().filter(book -> !book.isBorrowed()).toList();
         }
         // search for each keyword

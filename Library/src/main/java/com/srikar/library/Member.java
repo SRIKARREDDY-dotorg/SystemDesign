@@ -1,5 +1,6 @@
 package com.srikar.library;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,6 +13,8 @@ public class Member {
 
     private Member() {
         this.id = UUID.randomUUID().toString();
+        this.history = new ArrayList<>();
+        this.booksBorrowed = new ArrayList<>();
     }
 
     public String getId() {
