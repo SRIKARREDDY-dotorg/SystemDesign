@@ -112,3 +112,21 @@ if __name__ == "__main__":
     print(cache.get("user:123"))  # Should return None
     print(cache.get("user:124"))
     print(cache.get("user:134"))
+    
+"""
+Key 'user:123' stored in Node1
+Key 'user:124' stored in Node3
+Key 'user:123' retrieved from Node1
+John Doe
+Key 'user:123' deleted from Node1
+Key 'user:134' stored in Node2
+Key 'user:123' retrieved from Node1
+None
+Key 'user:124' retrieved from Node3
+Srikar
+Key 'user:134' retrieved from Node2
+Reddy
+"""
+
+#Note: Run it on Google Colab or somewhere to execute python
+
