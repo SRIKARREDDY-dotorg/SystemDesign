@@ -1,0 +1,12 @@
+[1752302713946] [INFO] [main]: This is an information message
+[1752302713947] [WARN] [main]: This is a warning message
+[1752302713947] [ERROR] [main]: This is an error message
+[1752302713947] [WARN] [main]: This is an information message
+[1752302730469] [INFO] [main]: This is an information message
+[1752302730470] [WARN] [main]: This is a warning message
+[1752302730470] [ERROR] [main]: This is an error message
+[1752302730470] [WARN] [main]: This is an information message
+[1752302772365] [INFO] [main]: This is an information message
+[1752302772366] [WARN] [main]: This is a warning message
+[1752302772366] [ERROR] [main]: This is an error message
+[1752302772366] [WARN] [main]: This is an information message
