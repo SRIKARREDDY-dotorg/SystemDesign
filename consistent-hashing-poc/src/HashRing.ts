@@ -28,8 +28,10 @@ export class HashRing {
 
     removeNode(node: string): void {
         // Remove all virtual nodes on the ring.
+        const before = this.ring.length;
         this.ring = this.ring.filter((entry) => entry.node !== node);
-        console.log(`Removed "${node}" from the ring`);
+        const removed = before - this.ring.length;
+        console.log(`Removed "${node}" (${removed} virtual nodes cleared)`);
     }
 
     // Find which node owns this key
@@ -55,6 +57,17 @@ export class HashRing {
             distribution[entry.node] = (distribution[entry.node] || 0) + 1;
         }
         return distribution;
+    }
+
+    // snapshot: returns a map of key -> node for all given keys
+    snapshotKeys(keys: string[]): Record<string, string> {
+        const snapshot: Record<string, string> = {};
+
+        for (const key of keys) {
+            snapshot[key] = this.getNode(key);
+        }
+
+        return snapshot;
     }
 
     printRing(): void {
